@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { ArtWork, Card } from "../types";
+
 import { addfavouriteCard } from "../utils/utils";
 import { getFinalData } from "../data/ArtworkData";
 import { useArtwork } from "../context";

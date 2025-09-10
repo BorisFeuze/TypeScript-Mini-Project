@@ -4,6 +4,7 @@ import {
   type ChangeEventHandler,
   type MouseEventHandler,
 } from "react";
+
 import { getFinalData } from "../data/ArtworkData";
 import { getFavouriteCards, removeFavouriteCard } from "../utils/utils";
 import type { Card, Fc } from "../types";
