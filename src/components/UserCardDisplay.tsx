@@ -1,5 +1,6 @@
 import { UserCard } from "../components/index";
 import { getFavouriteCards } from "../utils/utils";
+import type { Fc } from "../types";
 
 function UserCardDisplay() {
   const favouriteCards = getFavouriteCards();
@@ -9,7 +10,7 @@ function UserCardDisplay() {
         MY FAVOURITE ARTWORK
       </h1>
       <section className="p-4 grid grid-cols-[repeat(auto-fill,minmax(24rem,1fr))]  gap-6 justify-center">
-        {favouriteCards.map((fc) => (
+        {favouriteCards.map((fc: Fc) => (
           <UserCard key={fc.id} fc={fc} />
         ))}
       </section>
