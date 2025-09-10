@@ -1,6 +1,6 @@
 import { useState, type ChangeEventHandler } from "react";
 import { Link } from "react-router-dom";
-import { useArtwork } from "../../context/ArtworkContext";
+import { useArtwork } from "../../context";
 import { debounce } from "../../utils/utils";
 import { NavLink } from "react-router";
 

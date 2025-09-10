@@ -1,5 +1,5 @@
 import { ArtworkCard } from "../components";
-import { useArtwork } from "../context/artworkContext";
+import { useArtwork } from "../context";
 
 function Home() {
   const { artworks } = useArtwork();

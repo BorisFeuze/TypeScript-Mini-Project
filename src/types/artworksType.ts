@@ -1,6 +1,7 @@
 import { z } from "zod/v4";
 import type { ArtworkallSchema, ArtworkSchema } from "../schemas";
 import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 type Search = {
   search: string;

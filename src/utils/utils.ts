@@ -14,6 +14,7 @@ const addfavouriteCard = (array: ArtWork[], param: ArtWork) => {
   const currCard = array.find((c) => {
     return c.id === param.id;
   });
+
   const isStorted = storedFavouriteCards.some((card: Fc) => {
     return card.id === param.id;
   });
