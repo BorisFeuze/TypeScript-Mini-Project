@@ -15,7 +15,7 @@ const UserCard = ({ fc }: { fc: Fc }) => {
   const [favouriteCard, setFavouriteCard] = useState<Card | null>(null);
 
   const [formData, setFormData] = useState({ info: "" });
-  const [stortedCards, setStoredCards] = useState(getFavouriteCards());
+  const [_, setStoredCards] = useState(getFavouriteCards());
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
