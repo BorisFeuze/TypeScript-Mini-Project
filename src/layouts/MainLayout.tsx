@@ -1,10 +1,15 @@
 import { Outlet } from "react-router";
-import ArtworkProvider from "../context/artworkProvider";
+import ArtworkProvider from "../context/ArtworkProvider";
+import { Navbar, Footer } from "../components";
 
 const MainLayout = () => {
   return (
     <ArtworkProvider>
-      <Outlet />
+      <Navbar />
+      <main>
+        <Outlet />
+      </main>
+      <Footer />
     </ArtworkProvider>
   );
 };

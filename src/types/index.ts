@@ -1,3 +1,9 @@
-import type { Search, ArtWork } from "./artworksType";
+import type {
+  Search,
+  ArtWork,
+  Card,
+  ArtWorkContextType,
+  Fc,
+} from "./artworksType";
 
-export type { Search, ArtWork };
+export type { Search, ArtWork, Card, ArtWorkContextType, Fc };

@@ -12,12 +12,6 @@ const ArtworkSchema = z.object({
   image_id: z.string().min(1),
 });
 
-const ArtworkSchemaObject = z.object(ArtworkSchema);
 const ArtworkallSchemaArray = z.array(ArtworkallSchema);
 
-export {
-  ArtworkSchema,
-  ArtworkSchemaObject,
-  ArtworkallSchema,
-  ArtworkallSchemaArray,
-};
+export { ArtworkSchema, ArtworkallSchema, ArtworkallSchemaArray };

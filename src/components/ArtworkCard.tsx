@@ -1,32 +1,27 @@
 import { useEffect, useState } from "react";
-import type { ArtWork } from "../types";
+import type { ArtWork, Card } from "../types";
 import { addfavouriteCard } from "../utils/utils";
 import { getFinalData } from "../data/ArtworkData";
-import { useArtwork } from "../context/artworkContext";
+import { useArtwork } from "../context/ArtworkContext";
 
 const ArtworkCard = ({ artwork }: { artwork: ArtWork }) => {
-  const imageUrl = "https://www.artic.edu/iiif/2/";
+  const imageUrl1 = "https://www.artic.edu/iiif/2/";
+  const imageUrl2 = "/full/400,/0/default.jpg";
 
-  const [card, setCard] = useState({});
+  const [card, setCard] = useState<Card | null>(null);
 
   const { artworks } = useArtwork();
-
-  const { id, title, artist_title, image_id } = card;
 
   const addToFavourite = () => {
     addfavouriteCard(artworks, artwork);
   };
 
-  // console.log(imageUrl + image_id);
-
   useEffect(() => {
     const abortController = new AbortController();
     (async () => {
       try {
-        const URL = artwork.api_link;
+        const URL = artwork?.api_link;
         const finalData = await getFinalData(URL, abortController);
-
-        console.log(finalData);
         setCard(finalData);
       } catch (error) {
         console.log(error);
@@ -37,15 +32,19 @@ const ArtworkCard = ({ artwork }: { artwork: ArtWork }) => {
     };
   }, []);
 
+  if (!card) return;
+  const { title, artist_title, image_id } = card;
+
   return (
     <div className="card bg-base-100 w-96 shadow-sm">
       <figure>
-        <img src={imageUrl + image_id} alt={title} />
+        <img src={imageUrl1 + image_id + imageUrl2} alt={title} />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{title}</h2>
-        <div className="card-actions justify-end">
-          <button className="btn btn-primary" onClick={addToFavourite}>
+        <h1 className="card-title">{title}</h1>
+        <h2 className="text-sm">{artist_title}</h2>
+        <div className="card-actions justify-end mt-auto">
+          <button className="btn btn-primary mt-auto" onClick={addToFavourite}>
             Add to favourite
           </button>
         </div>
