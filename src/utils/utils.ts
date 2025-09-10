@@ -1,7 +1,8 @@
 import type { ArtWork, Fc } from "../types";
 
 const getFavouriteCards = () => {
-  return JSON.parse(localStorage.getItem("favourites")) || [];
+  const favourites = localStorage.getItem("favourites");
+  return favourites ? JSON.parse(favourites) : [];
 };
 
 const addfavouriteCard = (array: ArtWork[], param: ArtWork) => {
@@ -13,11 +14,12 @@ const addfavouriteCard = (array: ArtWork[], param: ArtWork) => {
   const currCard = array.find((c) => {
     return c.id === param.id;
   });
+
   const isStorted = storedFavouriteCards.some((card: Fc) => {
     return card.id === param.id;
   });
-  console.log(isStorted);
-  console.log(currCard);
+  // console.log(isStorted);
+  // console.log(currCard);
   if (isStorted) {
     updatedFavouriteCards = storedFavouriteCards.map((c: Fc) => {
       if (c.id === param.id) {
@@ -48,7 +50,7 @@ const removeFavouriteCard = (param: Fc) => {
 };
 
 const debounce = (fn, delay: number) => {
-  let timeoutId;
+  let timeoutId: ReturnType<typeof setTimeout>;
   return function (...args) {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => fn.apply(this, args), delay);

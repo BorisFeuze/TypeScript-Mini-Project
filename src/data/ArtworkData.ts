@@ -1,6 +1,5 @@
 import { z } from "zod/v4";
 import { ArtworkallSchemaArray, ArtworkSchema } from "../schemas/Artwork";
-import { _success } from "zod/v4/core";
 import type { Search } from "../types";
 
 const API_URL = "https://api.artic.edu/api/v1/artworks/search?";
@@ -36,7 +35,6 @@ const getFinalData = async (url: string, Abort: AbortController) => {
   if (!success) {
     throw new Error(z.prettifyError(error));
   }
-  console.log(data);
   return data;
 };
 

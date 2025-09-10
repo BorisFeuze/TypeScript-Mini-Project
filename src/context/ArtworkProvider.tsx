@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { getArtworks } from "../data/ArtworkData";
 import type { ArtWork, Search } from "../types";
-import { ArtworkContext } from "./ArtworkContext";
+import { ArtworkContext } from ".";
 
 function ArtworkProvider({ children }: { children: ReactNode }) {
   const [form, setForm] = useState<Search>({ search: "" });

@@ -4,6 +4,7 @@ import {
   type ChangeEventHandler,
   type MouseEventHandler,
 } from "react";
+
 import { getFinalData } from "../data/ArtworkData";
 import { getFavouriteCards, removeFavouriteCard } from "../utils/utils";
 import type { Card, Fc } from "../types";
@@ -15,16 +16,15 @@ const UserCard = ({ fc }: { fc: Fc }) => {
   const [favouriteCard, setFavouriteCard] = useState<Card | null>(null);
 
   const [formData, setFormData] = useState({ info: "" });
-  const [stortedCards, setStoredCards] = useState(getFavouriteCards());
+  const [_, setStoredCards] = useState(getFavouriteCards());
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(e.target.value);
   };
 
   const handleRemoveCard: MouseEventHandler<HTMLButtonElement> = (event) => {
     removeFavouriteCard(fc);
-    event.target.parentElement.remove();
+    (event.target as HTMLElement).parentElement?.remove();
   };
 
   const handleSave = () => {
@@ -49,8 +49,6 @@ const UserCard = ({ fc }: { fc: Fc }) => {
       try {
         const URL = fc.api_link;
         const finalData = await getFinalData(URL, abortController);
-
-        console.log(finalData);
         setFavouriteCard(finalData);
       } catch (error) {
         console.log(error);
@@ -84,7 +82,7 @@ const UserCard = ({ fc }: { fc: Fc }) => {
           name="info"
           value={formData.info}
           onChange={handleChange}
-          placeholder="note"
+          placeholder="note..."
           className="flex-1 text-sm focus:outline-none leading-normal py-[.5rem] px-2 placeholder:text-gray-400 border-1 rounded"
         />
         <button

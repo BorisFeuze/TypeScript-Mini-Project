@@ -1,9 +1,12 @@
-import { type ChangeEventHandler } from "react";
+import { useState, type ChangeEventHandler } from "react";
 import { Link } from "react-router-dom";
-import { useArtwork } from "../../context/ArtworkContext";
+import { useArtwork } from "../../context";
 import { debounce } from "../../utils/utils";
+import { NavLink } from "react-router";
 
 const Navbar = () => {
+  const [isActive, setIsActive] = useState(true);
+
   const { setForm, form } = useArtwork();
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -15,10 +18,12 @@ const Navbar = () => {
   // close dropdown after clicking a link
   const handleCloseMenu = () => {
     const activeElement = document.activeElement;
-    if (activeElement && activeElement.blur) {
-      activeElement.blur(); // close dropdown by removing focus
+    if (activeElement && (activeElement as HTMLElement).blur) {
+      (activeElement as HTMLElement).blur(); // close dropdown by removing focus
     }
   };
+
+  console.log(isActive);
 
   return (
     <nav className="navbar fixed top-0 z-50 w-full bg-white/95 backdrop-blur border-b shadow-sm">
@@ -47,22 +52,28 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content mt-3 p-2 shadow-lg bg-base-100 rounded-box w-56"
           >
             <li>
-              <Link
+              <NavLink
                 to="/"
-                onClick={handleCloseMenu}
+                onClick={() => {
+                  handleCloseMenu();
+                  setIsActive(true);
+                }}
                 className="btn btn-sm bg-slate-800 text-white hover:-translate-y-0.5 hover:shadow-md transition"
               >
                 Home
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
+              <NavLink
                 to="/cart"
-                onClick={handleCloseMenu}
+                onClick={() => {
+                  handleCloseMenu();
+                  setIsActive(false);
+                }}
                 className="btn btn-sm bg-emerald-600 text-white hover:bg-emerald-700 hover:-translate-y-0.5 hover:shadow-md transition"
               >
                 my Favourite
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </div>
@@ -72,7 +83,7 @@ const Navbar = () => {
           Art Institute App
         </Link>
       </div>
-      <div>
+      <div className={`${isActive ? "menu-active" : ""}`}>
         <label className="input w-full">
           <svg
             className="h-[1em] opacity-50"
@@ -103,19 +114,25 @@ const Navbar = () => {
       {/* Right: desktop links */}
       <div className="navbar-end hidden lg:flex">
         <div className="flex items-center gap-3">
-          <Link
+          <NavLink
             to="/"
             className="btn bg-slate-800 text-white hover:-translate-y-0.5 hover:shadow-md transition"
+            onClick={() => {
+              setIsActive(true);
+            }}
           >
             Home
-          </Link>
+          </NavLink>
 
-          <Link
+          <NavLink
             to="/cart"
             className="btn bg-emerald-600 text-white hover:bg-emerald-700 hover:-translate-y-0.5 hover:shadow-md transition"
+            onClick={() => {
+              setIsActive(false);
+            }}
           >
             my Favourite
-          </Link>
+          </NavLink>
         </div>
       </div>
     </nav>

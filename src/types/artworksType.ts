@@ -18,6 +18,7 @@ type Fc = {
   id: number;
   api_link: string;
   note?: string;
+  count?: number;
 };
 
 export type { Search, ArtWork, Card, ArtWorkContextType, Fc };

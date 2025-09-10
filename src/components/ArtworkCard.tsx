@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import type { ArtWork, Card } from "../types";
+
 import { addfavouriteCard } from "../utils/utils";
 import { getFinalData } from "../data/ArtworkData";
-import { useArtwork } from "../context/ArtworkContext";
+import { useArtwork } from "../context";
 
 const ArtworkCard = ({ artwork }: { artwork: ArtWork }) => {
   const imageUrl1 = "https://www.artic.edu/iiif/2/";
@@ -21,10 +22,7 @@ const ArtworkCard = ({ artwork }: { artwork: ArtWork }) => {
     (async () => {
       try {
         const URL = artwork?.api_link;
-        console.log(URL);
         const finalData = await getFinalData(URL, abortController);
-
-        console.log(finalData);
         setCard(finalData);
       } catch (error) {
         console.log(error);
