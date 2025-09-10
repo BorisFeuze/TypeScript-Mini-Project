@@ -1,5 +1,5 @@
 import { z } from "zod/v4";
-import { ArtworkallSchemaArray, ArtworkSchemaObject } from "../schemas/Artwork";
+import { ArtworkallSchemaArray, ArtworkSchema } from "../schemas/Artwork";
 import { _success } from "zod/v4/core";
 import type { Search } from "../types";
 
@@ -31,13 +31,11 @@ const getFinalData = async (url: string, Abort: AbortController) => {
   }
   const respData = await response.json();
 
-  // const { success, data, error } = ArtworkSchemaObject.safeParse(respData);
+  const { success, data, error } = ArtworkSchema.safeParse(respData?.data);
 
-  const data = respData.data;
-
-  // if (!success) {
-  //   throw new Error(z.prettifyError(error));
-  // }
+  if (!success) {
+    throw new Error(z.prettifyError(error));
+  }
   console.log(data);
   return data;
 };

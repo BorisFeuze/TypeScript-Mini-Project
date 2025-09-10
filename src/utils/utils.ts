@@ -1,8 +1,10 @@
+import type { ArtWork, Fc } from "../types";
+
 const getFavouriteCards = () => {
   return JSON.parse(localStorage.getItem("favourites")) || [];
 };
 
-const addfavouriteCard = (array, param) => {
+const addfavouriteCard = (array: ArtWork[], param: ArtWork) => {
   const storedFavouriteCards = getFavouriteCards();
 
   console.log(storedFavouriteCards);
@@ -11,13 +13,13 @@ const addfavouriteCard = (array, param) => {
   const currCard = array.find((c) => {
     return c.id === param.id;
   });
-  const isStorted = storedFavouriteCards.some((card) => {
+  const isStorted = storedFavouriteCards.some((card: Fc) => {
     return card.id === param.id;
   });
   console.log(isStorted);
   console.log(currCard);
   if (isStorted) {
-    updatedFavouriteCards = storedFavouriteCards.map((c) => {
+    updatedFavouriteCards = storedFavouriteCards.map((c: Fc) => {
       if (c.id === param.id) {
         return { ...c, count: c.count + 1 };
       } else {
@@ -32,4 +34,24 @@ const addfavouriteCard = (array, param) => {
   localStorage.setItem("favourites", JSON.stringify(updatedFavouriteCards));
 };
 
-export { addfavouriteCard, getFavouriteCards };
+const removeFavouriteCard = (param: Fc) => {
+  // get the new state of the movie Data in localstorage
+  const storedFavouriteCards = getFavouriteCards();
+
+  // remove the movie data from Datalist in localstorage
+  const updatedFavouriteCards = storedFavouriteCards.filter((sf: Fc) => {
+    return sf.id !== param.id;
+  });
+
+  // save the new datalist
+  localStorage.setItem("favourites", JSON.stringify(updatedFavouriteCards));
+};
+
+const debounce = (fn, delay: number) => {
+  let timeoutId;
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn.apply(this, args), delay);
+  };
+};
+export { addfavouriteCard, getFavouriteCards, removeFavouriteCard, debounce };

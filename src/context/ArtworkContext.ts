@@ -1,7 +1,8 @@
 import { createContext, use } from "react";
-import ArtworkProvider from "./artworkProvider";
+import ArtworkProvider from "./ArtworkProvider";
+import type { ArtWorkContextType } from "../types";
 
-const ArtworkContext = createContext();
+const ArtworkContext = createContext<ArtWorkContextType | undefined>(undefined);
 
 const useArtwork = () => {
   const context = use(ArtworkContext);

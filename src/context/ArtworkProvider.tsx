@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { getArtworks } from "../data/ArtworkData";
-import type { ArtWork } from "../types";
-import { ArtworkContext } from "./artworkContext";
+import type { ArtWork, Search } from "../types";
+import { ArtworkContext } from "./ArtworkContext";
 
-function ArtworkProvider({ children }) {
-  const [form, setForm] = useState({ search: "" });
+function ArtworkProvider({ children }: { children: ReactNode }) {
+  const [form, setForm] = useState<Search>({ search: "" });
   const [artworks, setArtworks] = useState<ArtWork[]>([]);
 
   useEffect(() => {
