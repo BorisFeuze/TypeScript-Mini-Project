@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import type { ArtWork, Card } from "../types";
-
-import { addfavouriteCard } from "../utils/utils";
+import { addfavouriteCard } from "../utils";
 import { getFinalData } from "../data/ArtworkData";
 import { useArtwork } from "../context";
+import { toast } from "react-toastify";
 
 const ArtworkCard = ({ artwork }: { artwork: ArtWork }) => {
   const imageUrl1 = "https://www.artic.edu/iiif/2/";
@@ -25,7 +25,9 @@ const ArtworkCard = ({ artwork }: { artwork: ArtWork }) => {
         const finalData = await getFinalData(URL, abortController);
         setCard(finalData);
       } catch (error) {
-        console.log(error);
+        const errorMessage =
+          error instanceof Error ? error.message : "Something went wrong";
+        toast.error(errorMessage);
       }
     })();
     return () => {

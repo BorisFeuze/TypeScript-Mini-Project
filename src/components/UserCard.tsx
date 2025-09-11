@@ -6,8 +6,9 @@ import {
 } from "react";
 
 import { getFinalData } from "../data/ArtworkData";
-import { getFavouriteCards, removeFavouriteCard } from "../utils/utils";
+import { getFavouriteCards, removeFavouriteCard } from "../utils";
 import type { Card, Fc } from "../types";
+import { toast } from "react-toastify";
 
 const UserCard = ({ fc }: { fc: Fc }) => {
   const imageUrl1 = "https://www.artic.edu/iiif/2/";
@@ -29,14 +30,19 @@ const UserCard = ({ fc }: { fc: Fc }) => {
 
   const handleSave = () => {
     const { info } = formData;
-    setStoredCards((prev) => {
-      const updtateStoredCards = prev.map((p) => {
+
+    if (!formData.info.trim())
+      throw new Error("Please enter the note before saving");
+
+    setStoredCards((prev: Fc[]) => {
+      const updtateStoredCards = prev.map((p: Fc) => {
         if (p.id === fc.id) {
           return { ...p, note: info };
         } else {
           return p;
         }
       });
+      toast.success("Your note have been successfully saved ");
       localStorage.setItem("favourites", JSON.stringify(updtateStoredCards));
       return updtateStoredCards;
     });
@@ -51,7 +57,9 @@ const UserCard = ({ fc }: { fc: Fc }) => {
         const finalData = await getFinalData(URL, abortController);
         setFavouriteCard(finalData);
       } catch (error) {
-        console.log(error);
+        const errorMessage =
+          error instanceof Error ? error.message : "Something went wrong";
+        toast.error(errorMessage);
       }
     })();
     return () => {

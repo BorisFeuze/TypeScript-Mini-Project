@@ -21,4 +21,8 @@ type Fc = {
   count?: number;
 };
 
-export type { Search, ArtWork, Card, ArtWorkContextType, Fc };
+type Function = {
+  fn: () => void;
+};
+
+export type { Search, ArtWork, Card, ArtWorkContextType, Fc, Function };

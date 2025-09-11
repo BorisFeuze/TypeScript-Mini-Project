@@ -1,5 +1,5 @@
 import { UserCard } from "../components/index";
-import { getFavouriteCards } from "../utils/utils";
+import { getFavouriteCards } from "../utils";
 import type { Fc } from "../types";
 
 function UserCardDisplay() {
