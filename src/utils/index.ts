@@ -1,4 +1,4 @@
-import type { ArtWork, Fc } from "../types";
+import type { ArtWork, Fc, Function } from "../types";
 
 const getFavouriteCards = () => {
   const favourites = localStorage.getItem("favourites");
@@ -49,9 +49,9 @@ const removeFavouriteCard = (param: Fc) => {
   localStorage.setItem("favourites", JSON.stringify(updatedFavouriteCards));
 };
 
-const debounce = (fn, delay: number) => {
+const debounce = (fn: Function, delay: number) => {
   let timeoutId: ReturnType<typeof setTimeout>;
-  return function (...args) {
+  return function (...args: unknown[]) {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => fn.apply(this, args), delay);
   };

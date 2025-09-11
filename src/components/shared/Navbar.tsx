@@ -1,7 +1,7 @@
 import { useState, type ChangeEventHandler } from "react";
 import { Link } from "react-router-dom";
 import { useArtwork } from "../../context";
-import { debounce } from "../../utils/utils";
+import { debounce } from "../../utils";
 import { NavLink } from "react-router";
 
 const Navbar = () => {
